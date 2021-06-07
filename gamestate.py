@@ -2,7 +2,7 @@
 Date: 06/06/2021
 Name: Rio Weil
 Title: gamestate.py
-Description: Game state of the minesweeper game.
+Description: Backend code for minesweeper game
 """
 import numpy as np
 
