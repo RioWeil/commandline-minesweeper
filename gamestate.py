@@ -6,6 +6,24 @@ Description: Represents the Game state of the minesweeper game.
 """
 import numpy as np
 
+"""
+Represents a single tile on the minesweeper board
+"""
+class Tile:
+    """
+    Initializes the tile.
+    is_bomb (boolean) - Whether the tile is a bomb tile or not
+    """
+    def __init__(self, is_bomb):
+        self.is_bomb = is_bomb
+        self.flagged = False
+        self.revealed = False
+
+    
+
+"""
+Represents a minesweeper gamestate
+"""
 class GameState:
     """
     Initializes the gamestate.
@@ -17,6 +35,7 @@ class GameState:
         self.width = width
         self.height = height
         self.numbombs = numbombs
+        self.gameover = False
         self.state = create_board(width, height, numbombs)
 
     """
