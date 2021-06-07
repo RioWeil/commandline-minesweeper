@@ -39,5 +39,17 @@ class GameState:
     command (string) - Command provided by user in the console
     """
     def handle_input(self, command):
-        return 0
+        splitcomm = command.split
+        try:
+            if(splitcomm[0] == "check"):
+                return 0
+            elif(splitcomm[0] == "flag"):
+                return 0
+            elif(splitcomm[0] == "fold"):
+                return 0
+            else:
+                print("Invalid command")
+        except IndexError:
+            print("Invalid command")
+
 
