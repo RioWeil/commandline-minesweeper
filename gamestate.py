@@ -2,9 +2,11 @@
 Date: 06/06/2021
 Name: Rio Weil
 Title: gamestate.py
-Description: Represents the Game state of the minesweeper game.
+Description: Game state of the minesweeper game.
 """
 import numpy as np
+
+
 
 """
 Represents a single tile on the minesweeper board
