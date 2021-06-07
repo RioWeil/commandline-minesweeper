@@ -35,8 +35,9 @@ class GameState:
         self.width = width
         self.height = height
         self.numbombs = numbombs
+        self.victory = False
         self.gameover = False
-        self.state = create_board(width, height, numbombs)
+        self.state = self.create_board(width, height, numbombs)
 
     """
     Returns a 2x2 array corresponding to a width * height minsweeper board with numbombs.
