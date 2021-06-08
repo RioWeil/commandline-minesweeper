@@ -1,7 +1,7 @@
 """
 Date: 06/06/2021
 Name: Rio Weil
-Title: gamestate.py
+Title: model.py
 Description: Backend code for minesweeper game
 """
 import numpy as np

@@ -22,5 +22,3 @@ Error raised when more bombs than possible spaces on board
 """
 class TooManyBombsException(Error):
     pass
-
-

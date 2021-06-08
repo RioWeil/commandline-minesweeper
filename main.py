@@ -1,4 +1,4 @@
-import gamestate
+import model
 import numpy as np
 
 print("Welcome to command line minesweeper!")
