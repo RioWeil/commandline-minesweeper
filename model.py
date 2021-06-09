@@ -47,6 +47,8 @@ class GameState:
         self.victory = False
         self.gameover = False
         self.board = self.create_board(width, height, numbombs)
+        set_neighbours(self.board)
+        
 
     """
     Returns a 2x2 array corresponding to a width * height minsweeper board with numbombs.
@@ -66,6 +68,15 @@ class GameState:
                     row.append(Tile(False))
             board.append(row)
         return board
+
+    """
+    Updates tiles in board to reflect number of neighbouring bombs. 
+    A tile with 3 neighbouring bombs will have bomb_neighbours set to 3.
+    board (2D list) - Board of tiles to update
+    """
+    def set_neighbours(self, board):
+        pass
+
 
     """
     Returns a string corresponding to the current gamestate
