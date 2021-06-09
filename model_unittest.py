@@ -84,10 +84,10 @@ class TestCreateBoard(unittest.TestCase):
     def test_large_nobombs(self):
         try:
             test_gamestate = model.GameState(5, 10, 0)
-            self.assertEqual(5, len(test_gamestate.board))
-            self.assertEqual(10, len(test_gamestate.board[0]))
-            for i in range(5):
-                for j in range(10):
+            self.assertEqual(10, len(test_gamestate.board))
+            self.assertEqual(5, len(test_gamestate.board[0]))
+            for i in range(10):
+                for j in range(5):
                     self.assertFalse(test_gamestate.board[i][j].is_bomb)
         except(errors.ZeroException):
             self.fail(zero_expcept_wrong)  
@@ -110,11 +110,11 @@ class TestCreateBoard(unittest.TestCase):
     def test_large_somebombs(self):
         try:
             test_gamestate = model.GameState(10, 5, 25)
-            self.assertEqual(10, len(test_gamestate.board))
-            self.assertEqual(5, len(test_gamestate.board[0]))
+            self.assertEqual(5, len(test_gamestate.board))
+            self.assertEqual(10, len(test_gamestate.board[0]))
             count = 0
-            for i in range(10):
-                for j in range(5):
+            for i in range(5):
+                for j in range(10):
                     if(test_gamestate.board[i][j].is_bomb):
                         count += 1
             self.assertEqual(25, count)
