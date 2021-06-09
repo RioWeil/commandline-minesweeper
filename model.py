@@ -68,13 +68,36 @@ class GameState:
     command (string) - Command provided by user in the console
     """
     def handle_input(self, command):
-        splitcomm = command.split
-        if(splitcomm[0] == "check"):
-            return 0
-        elif(splitcomm[0] == "flag"):
-            return 0
-        elif(splitcomm[0] == "fold"):
-            return 0
+        split_command = command.split
+        if(split_command[0] == "check"):
+            check_space(split_command[1], split_command[2])
+        elif(split_command[0] == "flag"):
+            set_flag(split_command[1], split_command[2])
+        elif(split_command[0] == "fold"):
+            self.gameover = True
         else:
             raise errors.InvalidInputException("")
+
+    """
+    Reveals the space on the board at coordinate (x, y)
+    x (int) - x coordinate of space to check
+    y (int) - y coordinate of space to check
+    """
+    def check_space(self, x, y):
+        pass
+
+    """
+    Sets flag down at coordinate (x, y)
+    x (int) - x coordinate of space to check
+    y (int) - y coordinate of space to check
+    """
+    def set_flag(self, x, y):
+        pass
+
+    """
+    Reveals all spaces on board
+    """
+    def reveal_all():
+        pass
+
             
