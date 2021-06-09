@@ -5,6 +5,8 @@ Title: model.py
 Description: Backend code for minesweeper game
 """
 import numpy as np
+import random
+import errors
 
 
 
@@ -39,7 +41,7 @@ class GameState:
         self.numbombs = numbombs
         self.victory = False
         self.gameover = False
-        self.state = self.create_board(width, height, numbombs)
+        self.board = self.create_board(width, height, numbombs)
 
     """
     Returns a 2x2 array corresponding to a width * height minsweeper board with numbombs.
@@ -48,10 +50,15 @@ class GameState:
     numbombs (int) - Number of bombs on gameboard
     """
     def create_board(self, width, height, numbombs):
-        return 0
+        bomblocs = random.sample(range(0, width * height), numbombs)
+        board = []
+        for i in range(width):
+            row = []
+            for j in range(height):
+                pass
 
     """
-    Prints out the current board to the console.
+    Returns a string corresponding to the current gamestate
     """
     def render(self):
         return 0
@@ -62,16 +69,12 @@ class GameState:
     """
     def handle_input(self, command):
         splitcomm = command.split
-        try:
-            if(splitcomm[0] == "check"):
-                return 0
-            elif(splitcomm[0] == "flag"):
-                return 0
-            elif(splitcomm[0] == "fold"):
-                return 0
-            else:
-                print("Invalid command")
-        except IndexError:
-            print("Invalid command")
-
-
+        if(splitcomm[0] == "check"):
+            return 0
+        elif(splitcomm[0] == "flag"):
+            return 0
+        elif(splitcomm[0] == "fold"):
+            return 0
+        else:
+            raise errors.InvalidInputException("")
+            

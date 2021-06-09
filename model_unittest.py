@@ -9,6 +9,9 @@ import unittest
 import model
 import errors
 
+zero_expcept_wrong = "ZeroException shouldn't be thrown"
+bomb_except_wrong = "TooManyBombsException shouldn't be thrown"
+
 class TestTileConstructor(unittest.TestCase):
     def test_constructor_bomb(self):
         test_tile = model.Tile(True)
@@ -32,9 +35,9 @@ class TestGameStateConstructor(unittest.TestCase):
             self.assertFalse(test_gamestate.victory)
             self.assertFalse(test_gamestate.gameover)
         except(errors.ZeroException):
-            self.fail("ZeroException shouldn't be thrown")
+            self.fail(zero_expcept_wrong)
         except(errors.TooManyBombsException):
-            self.fail("TooManyBombsException shouldn't be thrown")
+            self.fail(bomb_except_wrong)
 
     def test_constructor_zerodimensions(self):
         try:
@@ -53,6 +56,74 @@ class TestGameStateConstructor(unittest.TestCase):
             self.fail("ZeroException was thrown instead of TooManyBombsException")   
         except(errors.TooManyBombsException):
             pass
+
+class TestCreateBoard(unittest.TestCase):
+    def test_1x1_nobomb(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 0)
+            self.assertEqual(1, len(test_gamestate.board))
+            self.assertEqual(1, len(test_gamestate.board[0]))
+            self.assertFalse(test_gamestate.board[0][0].is_bomb)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+        
+    
+    def test_1x1_withbomb(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 1)
+            self.assertEqual(1, len(test_gamestate.board))
+            self.assertEqual(1, len(test_gamestate.board[0]))
+            self.assertTrue(test_gamestate.board[0][0].is_bomb)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_large_nobombs(self):
+        try:
+            test_gamestate = model.GameState(5, 10, 0)
+            self.assertEqual(5, len(test_gamestate.board))
+            self.assertEqual(10, len(test_gamestate.board[0]))
+            for i in range(5):
+                for j in range(10):
+                    self.assertFalse(test_gamestate.board[i][j].is_bomb)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_large_allbombs(self):
+        try:
+            test_gamestate = model.GameState(10, 10, 100)
+            self.assertEqual(5, len(test_gamestate.board))
+            self.assertEqual(10, len(test_gamestate.board[0]))
+            for i in range(10):
+                for j in range(10):
+                    self.assertTrue(test_gamestate.board[i][j].is_bomb)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_large_somebombs(self):
+        try:
+            test_gamestate = model.GameState(10, 5, 25)
+            self.assertEqual(10, len(test_gamestate.board))
+            self.assertEqual(5, len(test_gamestate.board[0]))
+            count = 0
+            for i in range(10):
+                for j in range(5):
+                    if(test_gamestate.board[i][j].is_bomb):
+                        count += 1
+            self.assertEqual(25, count)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+            
+
 
 if __name__ == '__main__':
     unittest.main()
