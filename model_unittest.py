@@ -97,7 +97,7 @@ class TestCreateBoard(unittest.TestCase):
     def test_large_allbombs(self):
         try:
             test_gamestate = model.GameState(10, 10, 100)
-            self.assertEqual(5, len(test_gamestate.board))
+            self.assertEqual(10, len(test_gamestate.board))
             self.assertEqual(10, len(test_gamestate.board[0]))
             for i in range(10):
                 for j in range(10):

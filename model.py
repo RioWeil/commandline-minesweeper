@@ -22,6 +22,7 @@ class Tile:
         self.is_bomb = is_bomb
         self.flagged = False
         self.revealed = False
+        self.bomb_neighbours = 0
 
     
 
@@ -36,6 +37,10 @@ class GameState:
     numbombs (int) - Number of bombs on gameboard
     """
     def __init__(self, width, height, numbombs):
+        if(width == 0 or height == 0):
+            raise errors.ZeroException
+        if(numbombs > width * height):
+            raise errors.TooManyBombsException
         self.width = width
         self.height = height
         self.numbombs = numbombs
@@ -52,10 +57,15 @@ class GameState:
     def create_board(self, width, height, numbombs):
         bomblocs = random.sample(range(0, width * height), numbombs)
         board = []
-        for i in range(width):
+        for i in range(height):
             row = []
-            for j in range(height):
-                pass
+            for j in range(width):
+                if(i * width + j in bomblocs):
+                    row.append(Tile(True))
+                else:
+                    row.append(Tile(False))
+            board.append(row)
+        return board
 
     """
     Returns a string corresponding to the current gamestate
