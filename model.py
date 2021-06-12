@@ -84,20 +84,6 @@ class GameState:
     def render(self):
         return 0
 
-    """
-    Handles command given on the commandline
-    command (string) - Command provided by user in the console
-    """
-    def handle_input(self, command):
-        split_command = command.split
-        if(split_command[0] == "check"):
-            check_space(split_command[1], split_command[2])
-        elif(split_command[0] == "flag"):
-            set_flag(split_command[1], split_command[2])
-        elif(split_command[0] == "fold"):
-            self.gameover = True
-        else:
-            raise errors.InvalidInputException("")
 
     """
     Reveals the space on the board at coordinate (x, y)
