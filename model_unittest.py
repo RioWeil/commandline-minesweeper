@@ -122,7 +122,56 @@ class TestCreateBoard(unittest.TestCase):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
-            
+
+class TestSetNeighbours(unittest.TestCase):
+    pass
+
+class TestRender(unittest.TestCase):
+    pass
+
+class TestCheckSpace(unittest.TestCase):
+    pass
+
+class TestSetFlag(unittest.TestCase):
+    pass
+
+class TestRevealAll(unittest.TestCase):
+    def test_1x1_reveal(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 1)
+            test_gamestate.reveal_all()
+            self.assertTrue(test_gamestate.board[0][0].revealed)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_larger_reveal(self):
+        try:
+            test_gamestate = model.GameState(5, 5, 10)
+            test_gamestate.reveal_all()
+            for i in range(5):
+                for j in range(5):
+                    self.assertTrue(test_gamestate.board[i][j].revealed)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_larger_reveal_after_checks(self):
+        try:
+            test_gamestate = model.GameState(5, 5, 10)
+            test_gamestate.check_space(0, 0)
+            test_gamestate.check_space(1, 3)
+            test_gamestate.reveal_all()
+            for i in range(5):
+                for j in range(5):
+                    self.assertTrue(test_gamestate.board[i][j].revealed)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)        
+
 
 
 if __name__ == '__main__':

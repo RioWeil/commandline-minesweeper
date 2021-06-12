@@ -104,7 +104,7 @@ class GameState:
     """
     Reveals all spaces on board
     """
-    def reveal_all():
+    def reveal_all(self):
         pass
 
             
