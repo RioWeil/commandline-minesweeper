@@ -77,8 +77,36 @@ class GameState:
     board (2D list) - Board of tiles to update
     """
     def set_neighbours(self):
-        return
+        for i in range(self.width):
+            for j in range(self.height):
+                count = 0
+                if (i - 1 >= 0):
+                    count += self.is_bomb_set(i - 1, j)
+                    if (j - 1 >= 0):
+                        count += self.is_bomb_set(i - 1, j - 1)
+                    if (j + 1 < self.height):
+                        count += self.is_bomb_set(i - 1, j + 1)
+                if (i + 1 < self.width):
+                    count += self.is_bomb_set(i + 1, j)
+                    if (j - 1 >= 0):
+                        count += self.is_bomb_set(i + 1, j - 1)
+                    if (j + 1 < self.height):
+                        count += self.is_bomb_set(i + 1, j + 1)
+                if (j - 1 >= 0):
+                    count += self.is_bomb_set(i, j - 1)
+                if (j + 1 < self.height):
+                    count += self.is_bomb_set(i, j + 1)
+                self.board[i][j].bomb_neighbours = count
 
+    """
+    Helper function for set_neighbours
+    Returns 1 if set_bomb is True, 0 otherwise.
+    """
+    def is_bomb_set(self, row, col):
+        if (self.board[row][col].is_bomb):
+            return 1
+        else:
+            return 0
 
     """
     Returns a string corresponding to the current gamestate
@@ -145,13 +173,60 @@ class GameState:
     """
     Reveals the space on the board at coordinate (x, y).
     Throws IndexError if trying to access coordinate not in the board.
-    If space has zero bombs, recursively calls function on all neighbours.
+    If space has zero bombs, calls recursive helper function on all neighbours.
     row (int) - row coordinate of space to check (0 based indexing)
     col (int) - column coordinate of space to check (0 based indexing)
     """
     def check_space(self, row, col):
-        return
-    
+        self.board[row][col].revealed = True
+        if self.board[row][col].is_bomb:
+            self.gameover = True
+            return
+        if self.board[row][col].bomb_neighbours == 0:
+            if (row - 1 >= 0):
+                self.check_space_notbomb(row - 1, col)
+                if (col - 1 >= 0):
+                    self.check_space_notbomb(row - 1, col - 1)
+                if (col + 1 < self.height):
+                    self.check_space_notbomb(row - 1, col + 1)
+            if (row + 1 < self.width):
+                self.check_space_notbomb(row + 1, col)
+                if (col - 1 >= 0):
+                    self.check_space_notbomb(row + 1, col - 1)
+                if (col + 1 < self.height):
+                    self.check_space_notbomb(row + 1, col + 1)
+            if (col - 1 >= 0):
+                self.check_space_notbomb(row, col - 1)
+            if (col + 1 < self.height):
+                self.check_space_notbomb(row, col + 1)
+            
+
+    """
+    Recursive helper function for check_space.
+    Reveals space if not a bomb, and if space was not revealed previously and
+    has zero bomb neighbours, recursively calls itself on neighbours.
+    """
+    def check_space_notbomb(self, row, col):
+        if (not self.board[row][col].revealed) and (not self.board[row][col].is_bomb):
+            self.board[row][col].revealed = True
+            if self.board[row][col].bomb_neighbours == 0:
+                if (row - 1 >= 0):
+                    self.check_space_notbomb(row - 1, col)
+                    if (col - 1 >= 0):
+                        self.check_space_notbomb(row - 1, col - 1)
+                    if (col + 1 < self.height):
+                        self.check_space_notbomb(row - 1, col + 1)
+                if (row + 1 < self.width):
+                    self.check_space_notbomb(row + 1, col)
+                    if (col - 1 >= 0):
+                        self.check_space_notbomb(row + 1, col - 1)
+                    if (col + 1 < self.height):
+                        self.check_space_notbomb(row + 1, col + 1)
+                if (col - 1 >= 0):
+                    self.check_space_notbomb(row, col - 1)
+                if (col + 1 < self.height):
+                    self.check_space_notbomb(row, col + 1)
+
     """
     Sets flag down at coordinate (x, y).
     Throws IndexError if trying to access coordinate not in the board.
