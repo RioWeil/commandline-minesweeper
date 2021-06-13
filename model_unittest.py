@@ -141,8 +141,8 @@ class TestSetNeighbours(unittest.TestCase):
             test_gamestate = model.GameState(2, 1, 1)
             test_gamestate.board = [[model.Tile(True), model.Tile(False)]]
             test_gamestate.set_neighbours()
-            assertEquals(0, test_gamestate.board[0][0])
-            assertEquals(1, test_gamestate.board[0][1])
+            self.assertEquals(0, test_gamestate.board[0][0])
+            self.assertEquals(1, test_gamestate.board[0][1])
         except(errors.ZeroException):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
@@ -257,7 +257,7 @@ class TestRender(unittest.TestCase):
 
     def test_3x3_render_complex(self):
         try:
-            test_gamestate = model.Gamestate(3, 3, 8)
+            test_gamestate = model.GameState(3, 3, 8)
             test_gamestate.board = [[model.Tile(True), model.Tile(True), model.Tile(True)], [model.Tile(False), model.Tile(False), model.Tile(False)], [model.Tile(True), model.Tile(True), model.Tile(True)]]
             test_gamestate.check_space(1, 0)
             test_gamestate.check_space(1, 1)
