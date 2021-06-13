@@ -276,6 +276,18 @@ class TestRender(unittest.TestCase):
     
 
 class TestCheckSpace(unittest.TestCase):
+    def test_check_space_notin_board(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 0)
+            test_gamestate.check_space(10, 10)
+            self.fail("IndexError should have been thrown.")
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+        except(IndexError):
+            pass
+        
     def test_1x1_checkspace_nobomb(self):
         try:
             test_gamestate = model.GameState(1, 1, 0)
@@ -286,6 +298,8 @@ class TestCheckSpace(unittest.TestCase):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
+        except(IndexError):
+            self.fail(index_except_wrong)
 
     def test_1x1_checkspace_withbomb(self):
         try:
@@ -297,6 +311,8 @@ class TestCheckSpace(unittest.TestCase):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
+        except(IndexError):
+            self.fail(index_except_wrong)
 
     def test_3x1_checkspace_revealall(self):
         try:
@@ -310,6 +326,8 @@ class TestCheckSpace(unittest.TestCase):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
+        except(IndexError):
+            self.fail(index_except_wrong)
 
     def test_3x1_checkspace_dont_reveal_bombs(self):
         try:
@@ -323,6 +341,8 @@ class TestCheckSpace(unittest.TestCase):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
+        except(IndexError):
+            self.fail(index_except_wrong)
     
     def test_3x3_checkspace_complex(self):
         try:
@@ -344,11 +364,24 @@ class TestCheckSpace(unittest.TestCase):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
-            
+        except(IndexError):
+            self.fail(index_except_wrong)            
 
 
 
 class TestSetFlag(unittest.TestCase):
+    def test_flag_space_notin_board(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 0)
+            test_gamestate.set_flag(10, 10)
+            self.fail("IndexError should have been thrown.")
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+        except(IndexError):
+            pass
+
     def test_1x1_setflag(self):
         try:
             test_gamestate = model.GameState(1, 1, 1)
@@ -358,6 +391,8 @@ class TestSetFlag(unittest.TestCase):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)  
+        except(IndexError):
+            self.fail(index_except_wrong)  
 
     def test_larger_setmultflags(self):
         try:
@@ -375,7 +410,8 @@ class TestSetFlag(unittest.TestCase):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)                    
-
+        except(IndexError):
+            self.fail(index_except_wrong)  
 
 class TestIsWin(unittest.TestCase):
     def test_1x1_iswin(self):
@@ -409,8 +445,7 @@ class TestIsWin(unittest.TestCase):
         except(errors.ZeroException):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
-            self.fail(bomb_except_wrong)        
-
+            self.fail(bomb_except_wrong)
 
 class TestRevealAll(unittest.TestCase):
     def test_1x1_reveal(self):
