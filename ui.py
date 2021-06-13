@@ -59,19 +59,35 @@ class Game:
     def handle_input(self):
         command = input("Enter command\ncheck row col - reveals space at (col, row)\nflag row col - places/removes flag at (col, row)\nfold - to give up\n")
         split_command = command.split()
-        if(split_command[0] == "check"):
-            row = int(split_command[1]) - 1
-            col = int(split_command[2]) - 1
-            self.gamestate.check_space(row, col)
-        elif(split_command[0] == "flag"):
-            row = int(split_command[1]) - 1
-            col = int(split_command[2]) - 1
-            self.gamestate.set_flag(row, col)
-        elif(split_command[0] == "fold"):
-            self.gamestate.gameover = True
-        else:
-            print("Invalid command! Try Again")
+        try:
+            if(split_command[0] == "check"):
+                row = int(split_command[1]) - 1
+                col = int(split_command[2]) - 1
+                if (row < 0) or (row > self.gamestate.height - 1) or (col < 0) or (col > self.gamestate.width - 1):
+                    print("Coordinates outside of board! Try again...")
+                    self.handle_input()
+                else:
+                    self.gamestate.check_space(row, col)
+            elif(split_command[0] == "flag"):
+                row = int(split_command[1]) - 1
+                col = int(split_command[2]) - 1
+                if (row < 0) or (row > self.gamestate.height - 1) or (col < 0) or (col > self.gamestate.width - 1):
+                    print("Coordinates outside of board! Try again...")
+                    self.handle_input()
+                else:
+                    self.gamestate.set_flag(row, col)
+            elif(split_command[0] == "fold"):
+                self.gamestate.gameover = True
+            else:
+                print("Invalid command! Try again...")
+                self.handle_input()
+        except(IndexError):
+            print("It looks like you didn't format your input correctly! Try again...")
             self.handle_input()
+        except(ValueError):
+            print("It looks like your inputs weren't integers! Try again...")
+            self.handle_input()
+
 
     """
     Renders the current game board.
@@ -102,5 +118,12 @@ class Game:
     """
     def play_again(self):
         answer = input("Would you like to play again? (y/n)\n")
-        if (answer == "y"):
+        if answer == "y":
             Game()
+        elif answer == "n":
+            return
+        else:
+            print("Invalid command! Try again...")
+            self.play_again()
+
+        
