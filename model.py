@@ -60,7 +60,7 @@ class GameState:
     """
     def create_board(self, width, height, numbombs):
         bomblocs = random.sample(range(0, width * height), numbombs)
-        board = []
+        newboard = []
         for i in range(height):
             row = []
             for j in range(width):
@@ -68,8 +68,8 @@ class GameState:
                     row.append(Tile(True))
                 else:
                     row.append(Tile(False))
-            board.append(row)
-        return board
+            newboard.append(row)
+        return newboard
 
     """
     Updates tiles in board to reflect number of neighbouring bombs. 
@@ -104,13 +104,19 @@ class GameState:
     col (int) - column coordinate of space to flag (0 based indexing)
     """
     def set_flag(self, row, col):
-        return
+        return 1
 
     """
     Returns true if board is in winning state (all tiles revealed except bombs)
     """
     def is_win(self):
-        return False
+        count = 0
+        for i in range(self.width):
+            for j in range(self.height):
+                if (not self.board[i][j].is_bomb) and (self.board[i][j].revealed):
+                    count += 1
+        return (count == (self.width * self.height - self.numbombs))
+
 
     """
     Reveals all spaces on board
