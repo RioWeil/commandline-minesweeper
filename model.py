@@ -91,10 +91,14 @@ class GameState:
     """
     def render_label_row(self):
         row = "   "
-        for i in range(self.width):
-            row += str(i)
-            
-
+        for i in range(1, self.width + 1):
+            row += str(i % 10)
+            if ((i+1) % 10 == 0):
+                row += str((i+1) // 10)
+            else:
+                row += " "
+        return row
+        
     """
     Return a string with a border row of the form +-+-+-+
     """
