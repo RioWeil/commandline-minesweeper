@@ -122,4 +122,6 @@ class GameState:
     Reveals all spaces on board
     """
     def reveal_all(self):
-        return
+        for i in range(self.width):
+            for j in range(self.height):
+                self.board[i][j].revealed = True
