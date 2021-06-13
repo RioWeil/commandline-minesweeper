@@ -86,6 +86,24 @@ class GameState:
     def render(self):
         return "a"
 
+    """
+    Returns a string labelling the columns of the board
+    """
+    def render_label_row(self):
+        return ""
+
+    """
+    Return a string with a border row of the form +-+-+-+
+    """
+    def render_border_row(self):
+        return ""
+    
+    """
+    Returns a string with the board information of the form X  |1| |F|...
+    """
+    def render_minefield_row(self, row):
+        return ""
+
 
     """
     Reveals the space on the board at coordinate (x, y).
@@ -104,7 +122,7 @@ class GameState:
     col (int) - column coordinate of space to flag (0 based indexing)
     """
     def set_flag(self, row, col):
-        return 1
+        self.board[row][col].flagged = True
 
     """
     Returns true if board is in winning state (all tiles revealed except bombs)
