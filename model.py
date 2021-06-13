@@ -230,7 +230,10 @@ class GameState:
     col (int) - column coordinate of space to flag (0 based indexing)
     """
     def set_flag(self, row, col):
-        self.board[row][col].flagged = True
+        if(self.board[row][col].flagged == False):
+            self.board[row][col].flagged = True
+        else:
+            self.board[row][col].flagged = False
 
     """
     Returns true if board is in winning state (all tiles revealed except bombs)

@@ -44,7 +44,7 @@ class Game:
     Handles command given on the commandline
     """
     def handle_input(self):
-        command = input("Enter command\ncheck row col - reveals space at (col, row)\nflag row col - places flag at (col, row)\nfold - to give up\n")
+        command = input("Enter command\ncheck row col - reveals space at (col, row)\nflag row col - places/removes flag at (col, row)\nfold - to give up\n")
         split_command = command.split()
         if(split_command[0] == "check"):
             row = int(split_command[1]) - 1

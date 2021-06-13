@@ -506,6 +506,19 @@ class TestSetFlag(unittest.TestCase):
             self.fail(bomb_except_wrong)  
         except(IndexError):
             self.fail(index_except_wrong)  
+    
+    def test_1x1_setunsetflag(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 1)
+            test_gamestate.set_flag(0, 0)
+            test_gamestate.set_flag(0, 0)
+            self.assertFalse(test_gamestate.board[0][0].flagged)
+        except(errors.ZeroException):
+            self.fail(zero_except_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)  
+        except(IndexError):
+            self.fail(index_except_wrong)         
 
     def test_larger_setmultflags(self):
         try:
