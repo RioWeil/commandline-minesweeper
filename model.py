@@ -86,7 +86,8 @@ class GameState:
 
 
     """
-    Reveals the space on the board at coordinate (x, y)
+    Reveals the space on the board at coordinate (x, y).
+    Also reveals neighbouring spaces which have zero bombs for neighbours.
     x (int) - x coordinate of space to check
     y (int) - y coordinate of space to check
     """

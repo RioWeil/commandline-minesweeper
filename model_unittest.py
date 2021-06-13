@@ -25,6 +25,7 @@ class TestTileConstructor(unittest.TestCase):
         self.assertFalse(test_tile.flagged)
         self.assertFalse(test_tile.revealed)
 
+
 class TestGameStateConstructor(unittest.TestCase):
     def test_constructor_normal(self):
         try:
@@ -56,6 +57,7 @@ class TestGameStateConstructor(unittest.TestCase):
             self.fail("ZeroException was thrown instead of TooManyBombsException")   
         except(errors.TooManyBombsException):
             pass
+
 
 class TestCreateBoard(unittest.TestCase):
     def test_1x1_nobomb(self):
@@ -123,17 +125,47 @@ class TestCreateBoard(unittest.TestCase):
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
+
 class TestSetNeighbours(unittest.TestCase):
     pass
+
 
 class TestRender(unittest.TestCase):
     pass
 
+
 class TestCheckSpace(unittest.TestCase):
     pass
 
+
 class TestSetFlag(unittest.TestCase):
-    pass
+    def test_1x1_setflag(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 1)
+            test_gamestate.set_flag(0, 0)
+            self.assertTrue(test_gamestate.board[0][0].flagged)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)  
+
+    def test_larger_setmultflags(self):
+        try:
+            test_gamestate = model.GameState(3, 3, 1)
+            test_gamestate.set_flag(0, 2)
+            test_gamestate.set_flag(1, 0)
+            test_gamestate.set_flag(2, 1)
+            for i in range(3):
+                for j in range(3):
+                    if (i == 0 and j == 2) or (i == 1 and j == 0) or (i == 2 and j == 1):
+                        self.assertTrue(test_gamestate.board[i][j].flagged)
+                    else:
+                        self.assertFalse(test_gamestate.board[i][j].flagged)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)                    
+
 
 class TestIsWin(unittest.TestCase):
     def test_1x1_iswin(self):
@@ -168,7 +200,6 @@ class TestIsWin(unittest.TestCase):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)        
-
 
 
 class TestRevealAll(unittest.TestCase):
