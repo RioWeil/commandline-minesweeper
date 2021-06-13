@@ -125,7 +125,7 @@ class GameState:
         row = "   "
         for i in range(1, self.width + 1):
             row += str(i % 10)
-            if ((i+1) % 10 == 0):
+            if ((i+1) % 10 == 0) and (not (self.width == i)):
                 row += str((i+1) // 10)
             else:
                 row += " "

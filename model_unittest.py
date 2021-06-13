@@ -295,6 +295,15 @@ class TestRenderLabelRow(unittest.TestCase):
             self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
+    
+    def test_9col_label_render(self):
+        try:
+            test_gamestate = model.GameState(9, 1, 1)
+            self.assertEqual("   1 2 3 4 5 6 7 8 9 ", test_gamestate.render_label_row())
+        except(errors.ZeroException):
+            self.fail(zero_except_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)        
 
     def test_overtencol_label_render(self):
         try:
