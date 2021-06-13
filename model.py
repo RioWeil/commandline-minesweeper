@@ -4,11 +4,8 @@ Name: Rio Weil
 Title: model.py
 Description: Backend code for minesweeper game
 """
-import numpy as np
 import random
 import errors
-
-
 
 """
 Represents a single tile on the minesweeper board
@@ -24,7 +21,6 @@ class Tile:
         self.revealed = False
         self.bomb_neighbours = 0
 
-    
 
 """
 Represents a minesweeper gamestate
