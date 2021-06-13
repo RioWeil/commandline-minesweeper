@@ -301,7 +301,7 @@ class TestRenderLabelRow(unittest.TestCase):
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
     
-class TestRenderBorderRow(self):
+class TestRenderBorderRow(unittest.TestCase):
     def test_1col_border_render(self):
         try:
             test_gamestate = model.GameState(1, 1, 1)
@@ -320,7 +320,7 @@ class TestRenderBorderRow(self):
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
-class TestRenderMinefieldRow(self):
+class TestRenderMinefieldRow(unittest.TestCase):
     def test_1col_minefield_render_noreveal(self):
         try:
             test_gamestate = model.GameState(1, 1, 1)
@@ -333,7 +333,7 @@ class TestRenderMinefieldRow(self):
     def test_1col_minefield_render_flag(self):      
         try:
             test_gamestate = model.GameState(1, 1, 1)
-            test_game.state.set_flag(0, 0)
+            test_gamestate.set_flag(0, 0)
             self.assertEquals("1 |F|", test_gamestate.render_minefield_row(0))
         except(errors.ZeroException):
             self.fail(zero_except_wrong)  
@@ -343,7 +343,7 @@ class TestRenderMinefieldRow(self):
     def test_1col_minefield_render_bomb(self):  
         try:
             test_gamestate = model.GameState(1, 1, 1)
-            test_game.state.check_space(0, 0)
+            test_gamestate.check_space(0, 0)
             self.assertEquals("1 |B|", test_gamestate.render_minefield_row(0))
         except(errors.ZeroException):
             self.fail(zero_except_wrong)  
@@ -353,10 +353,10 @@ class TestRenderMinefieldRow(self):
     def test_multicol_minefield_render(self):
         try:
             test_gamestate = model.GameState(5, 1, 1)
-            test_game.board = [[model.Tile(False), model.Tile(True), model.Tile(False), model.Tile(True), model.Tile(False)]]
-            test_game.check_space(0, 0)
-            test_game.check_space(0, 2)
-            test_game.check_space(0, 4)
+            test_gamestate.board = [[model.Tile(False), model.Tile(True), model.Tile(False), model.Tile(True), model.Tile(False)]]
+            test_gamestate.check_space(0, 0)
+            test_gamestate.check_space(0, 2)
+            test_gamestate.check_space(0, 4)
             self.assertEquals("1 |1| |2| |1|", test_gamestate.render_minefield_row(0))
         except(errors.ZeroException):
             self.fail(zero_except_wrong)  
@@ -365,7 +365,7 @@ class TestRenderMinefieldRow(self):
 
     def test_10throw_minefield_render(self):
         try:
-            test_gamestate = model.Gamestate(1, 10, 0)
+            test_gamestate = model.GameState(1, 10, 0)
             self.assertEquals("10| |", test_gamestate.render_minefield_row(9))      
         except(errors.ZeroException):
             self.fail(zero_except_wrong)  

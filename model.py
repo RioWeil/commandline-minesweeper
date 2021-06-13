@@ -85,10 +85,13 @@ class GameState:
     """
     def render(self):
         rendered_board = self.render_label_row()
+        rendered_board += "\n"
         for i in range(self.height):
-            rendered_board += render_border_row()
-            rendered_board += render_minefield_row(i)
-        rendered_board += render_border_row()
+            rendered_board += self.render_border_row()
+            rendered_board += "\n"
+            rendered_board += self.render_minefield_row(i)
+            rendered_board += "\n"
+        rendered_board += self.render_border_row()
         return rendered_board
 
     """
@@ -119,23 +122,23 @@ class GameState:
     """
     def render_minefield_row(self, row):
         row_to_render = self.board[row]
-        row = str(row + 1)
+        newrow = str(row + 1)
         if (row < 9):
-            row += " "
+            newrow += " "
         for i in range(self.width):
-            row += "|"
+            newrow += "|"
             if not row_to_render[i].revealed:
                 if row_to_render[i].flagged:
-                    row += "F"
+                    newrow += "F"
                 else:
-                    row += " "
+                    newrow += " "
             else:
                 if row_to_render[i].is_bomb:
-                    row += "B"
+                    newrow += "B"
                 else:
-                    row += row_to_render[i].bomb_neighbours
-        row += "|"
-        return row
+                    newrow += row_to_render[i].bomb_neighbours
+        newrow += "|"
+        return newrow
 
 
 
