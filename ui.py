@@ -26,36 +26,38 @@ class Game:
         while(True):
             self.render()
             self.handle_input()
-            if(self.is_lose()):
+            if(self.gamestate.gameover):
                 self.reveal_all()
                 self.render()
                 print("You lose!")
                 self.play_again()
+                break
             if(self.is_win()):
                 self.reveal_all()
                 self.render()
                 print("You win!")
                 self.play_again()
+                break
 
             
     """
     Handles command given on the commandline
     """
     def handle_input(self):
-        command = input("Enter command\ncheck row col - reveals space at row/col\nflag row col - places flag at row/col\nfold - to give up\n")
-        split_command = command.split
+        command = input("Enter command\ncheck row col - reveals space at (col, row)\nflag row col - places flag at (col, row)\nfold - to give up\n")
+        split_command = command.split()
         if(split_command[0] == "check"):
             row = int(split_command[1]) - 1
             col = int(split_command[2]) - 1
-            self.gamestate.board.check_space(row, col)
+            self.gamestate.check_space(row, col)
         elif(split_command[0] == "flag"):
             row = int(split_command[1]) - 1
             col = int(split_command[2]) - 1
-            self.gamestate.board.set_flag(row, col)
+            self.gamestate.set_flag(row, col)
         elif(split_command[0] == "fold"):
             self.gamestate.gameover = True
         else:
-            print("Invalid command!")
+            print("Invalid command! Try Again")
             self.handle_input()
 
     """
