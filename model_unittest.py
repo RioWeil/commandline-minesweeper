@@ -275,7 +275,76 @@ class TestRender(unittest.TestCase):
     
 
 class TestCheckSpace(unittest.TestCase):
-    pass
+    def test_1x1_checkspace_nobomb(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 0)
+            test_gamestate.check_space(0, 0)
+            self.assertTrue(test_gamestate.board[0][0].revealed)
+            self.assertFalse(test_gamestate.gameover)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_1x1_checkspace_withbomb(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 1)
+            test_gamestate.check_space(0, 0)
+            self.assertTrue(test_gamestate.board[0][0].revealed)
+            self.assertTrue(test_gamestate.gameover)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_3x1_checkspace_revealall(self):
+        try:
+            test_gamestate = model.Gamestate(3, 1, 0)
+            test_gamestate.check_space(0, 0)
+            self.assertTrue(test_gamestate.board[0][0].revealed)
+            self.assertTrue(test_gamestate.board[0][1].revealed)
+            self.assertTrue(test_gamestate.board[0][2].revealed)
+            self.assertFalse(test_gamestate.gameover)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_3x1_checkspace_dont_reveal_bombs(self):
+        try:
+            test_gamestate = model.Gamestate(3, 1, 1)
+            test_gamestate.board = [[model.Tile(False), model.Tile(False), model.Tile(True)]]
+            test_gamestate.check_space(0, 1)
+            self.assertTrue(test_gamestate.board[0][0].revealed)
+            self.assertTrue(test_gamestate.board[0][1].revealed)
+            self.assertFalse(test_gamestate.board[0][2].revealed)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+    
+    def test_3x3_checkspace_complex(self):
+        try:
+            test_gamestate = model.GameState(3, 3, 3)
+            self.assertFalse(test_gamestate.is_win())
+            test_gamestate.board = [[model.Tile(True), model.Tile(False), model.Tile(True)], [model.Tile(False), model.Tile(False), model.Tile(False)], [model.Tile(False), model.Tile(True), model.Tile(False)]]
+            test_gamestate.check_space(0, 1)
+            test_gamestate.check_space(1, 1)
+            self.assertFalse(test_gamestate.board[0][0].revealed)
+            self.assertTrue(test_gamestate.board[0][1].revealed)
+            self.assertTrue(test_gamestate.board[0][2].revealed)
+            self.assertFalse(test_gamestate.board[1][0].revealed)
+            self.assertTrue(test_gamestate.board[1][1].revealed)
+            self.assertFalse(test_gamestate.board[1][2].revealed)
+            self.assertFalse(test_gamestate.board[2][0].revealed)
+            self.assertFalse(test_gamestate.board[2][1].revealed)
+            self.assertFalse(test_gamestate.board[2][2].revealed)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+            
+
 
 
 class TestSetFlag(unittest.TestCase):
@@ -335,7 +404,7 @@ class TestIsWin(unittest.TestCase):
             test_gamestate.check_space(2, 0)    
             self.assertFalse(test_gamestate.is_win())   
             test_gamestate.check_space(2, 2)      
-            self.assertTrue(test_gamestate.is_win())                
+            self.assertTrue(test_gamestate.is_win())           
         except(errors.ZeroException):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
