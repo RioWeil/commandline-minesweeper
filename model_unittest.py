@@ -299,7 +299,7 @@ class TestCheckSpace(unittest.TestCase):
 
     def test_3x1_checkspace_revealall(self):
         try:
-            test_gamestate = model.Gamestate(3, 1, 0)
+            test_gamestate = model.GameState(3, 1, 0)
             test_gamestate.check_space(0, 0)
             self.assertTrue(test_gamestate.board[0][0].revealed)
             self.assertTrue(test_gamestate.board[0][1].revealed)
@@ -312,7 +312,7 @@ class TestCheckSpace(unittest.TestCase):
 
     def test_3x1_checkspace_dont_reveal_bombs(self):
         try:
-            test_gamestate = model.Gamestate(3, 1, 1)
+            test_gamestate = model.GameState(3, 1, 1)
             test_gamestate.board = [[model.Tile(False), model.Tile(False), model.Tile(True)]]
             test_gamestate.check_space(0, 1)
             self.assertTrue(test_gamestate.board[0][0].revealed)
