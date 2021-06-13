@@ -295,7 +295,7 @@ class TestRenderLabelRow(unittest.TestCase):
     def test_overtencol_label_render(self):
         try:
             test_gamestate = model.GameState(15, 1, 1)
-            self.assertEquals("   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 ", test_gamestate.render_label_row())
+            self.assertEquals("   1 2 3 4 5 6 7 8 910 1 2 3 4 5 ", test_gamestate.render_label_row())
         except(errors.ZeroException):
             self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
@@ -320,7 +320,6 @@ class TestRenderBorderRow(self):
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
-#TODO
 class TestRenderMinefieldRow(self):
     def test_1col_minefield_render_noreveal(self):
         try:
