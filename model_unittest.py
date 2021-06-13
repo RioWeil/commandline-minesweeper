@@ -34,7 +34,6 @@ class TestGameStateConstructor(unittest.TestCase):
             self.assertEqual(5, test_gamestate.width)
             self.assertEqual(10, test_gamestate.height)
             self.assertEqual(2, test_gamestate.numbombs)
-            self.assertFalse(test_gamestate.victory)
             self.assertFalse(test_gamestate.gameover)
         except(errors.ZeroException):
             self.fail(zero_except_wrong)

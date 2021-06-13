@@ -22,9 +22,3 @@ Error raised when more bombs than possible spaces on board
 """
 class TooManyBombsException(Error):
     pass
-
-"""
-Error raised when invalid command is given
-"""
-class InValidInputException(Error):
-    pass

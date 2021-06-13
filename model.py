@@ -42,7 +42,6 @@ class GameState:
         self.width = width
         self.height = height
         self.numbombs = numbombs
-        self.victory = False
         self.gameover = False
         self.board = self.create_board(width, height, numbombs)
         self.set_neighbours()
