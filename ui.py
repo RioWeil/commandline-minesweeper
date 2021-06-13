@@ -6,9 +6,22 @@ class Game:
     Initializes the Game.
     """
     def __init__(self):
-        width, height, numbombs = self.initialparams()
-        self.gamestate = model.GameState(width, height, numbombs)
-        self.gameloop()
+        try:
+            width, height, numbombs = self.initialparams()
+            self.gamestate = model.GameState(width, height, numbombs)
+            self.gameloop()
+        except(IndexError):
+            print("It looks like you didn't format your input correctly! Restarting...")
+            Game()
+        except(ValueError):
+            print("It looks like your inputs weren't integers! Restarting...")
+            Game()
+        except(errors.ZeroException):
+            print("It looks like your board has size zero! Restarting...")
+            Game()
+        except(errors.TooManyBombsException):
+            print("It looks like you have too many bombs for the size of your board! Restarting...")
+            Game()
 
     """
     Ask the user for the board dimensions and the number of bombs desired.
