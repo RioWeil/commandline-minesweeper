@@ -87,16 +87,16 @@ class GameState:
     """
     Reveals the space on the board at coordinate (x, y).
     Also reveals neighbouring spaces which have zero bombs for neighbours.
-    row (int) - row coordinate of space to check
-    col (int) - column coordinate of space to check
+    row (int) - row coordinate of space to check (0 based indexing)
+    col (int) - column coordinate of space to check (0 based indexing)
     """
     def check_space(self, row, col):
         return
 
     """
     Sets flag down at coordinate (x, y)
-    row (int) - row coordinate of space to check
-    col (int) - column coordinate of space to check
+    row (int) - row coordinate of space to flag (0 based indexing)
+    col (int) - column coordinate of space to flag (0 based indexing)
     """
     def set_flag(self, row, col):
         return
