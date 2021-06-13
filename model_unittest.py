@@ -127,12 +127,152 @@ class TestCreateBoard(unittest.TestCase):
 
 
 class TestSetNeighbours(unittest.TestCase):
-    pass
+    def test_1x1_setneighbours(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 1)
+            self.assertEquals(0, test_gamestate.board[0][0].bomb_neighbours)
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_2x1_setneighbours(self):
+        try:
+            test_gamestate = model.GameState(2, 1, 1)
+            test_gamestate.board = [[model.Tile(True), model.Tile(False)]]
+            test_gamestate.set_neighbours()
+            assertEquals(0, test_gamestate.board[0][0])
+            assertEquals(1, test_gamestate.board[0][1])
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_3x3_nobombs_setneighbours(self):
+        try:
+            test_gamestate = model.GameState(3, 3, 3)
+            self.assertFalse(test_gamestate.is_win())
+            test_gamestate.board = [[model.Tile(False), model.Tile(False), model.Tile(False)], [model.Tile(False), model.Tile(False), model.Tile(False)], [model.Tile(False), model.Tile(False), model.Tile(False)]]
+            self.assertEquals(0, test_gamestate.board[0][0])
+            self.assertEquals(0, test_gamestate.board[0][1])
+            self.assertEquals(0, test_gamestate.board[0][2])
+            self.assertEquals(0, test_gamestate.board[1][0])
+            self.assertEquals(0, test_gamestate.board[1][1])
+            self.assertEquals(0, test_gamestate.board[1][2])
+            self.assertEquals(0, test_gamestate.board[2][0])
+            self.assertEquals(0, test_gamestate.board[2][1])
+            self.assertEquals(0, test_gamestate.board[2][2])     
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_3x3_fewbombs_setneighbours(self):
+        try:
+            test_gamestate = model.GameState(3, 3, 3)
+            self.assertFalse(test_gamestate.is_win())
+            test_gamestate.board = [[model.Tile(True), model.Tile(False), model.Tile(True)], [model.Tile(False), model.Tile(False), model.Tile(False)], [model.Tile(False), model.Tile(True), model.Tile(False)]]
+            self.assertEquals(0, test_gamestate.board[0][0])
+            self.assertEquals(2, test_gamestate.board[0][1])
+            self.assertEquals(0, test_gamestate.board[0][2])
+            self.assertEquals(2, test_gamestate.board[1][0])
+            self.assertEquals(3, test_gamestate.board[1][1])
+            self.assertEquals(2, test_gamestate.board[1][2])
+            self.assertEquals(1, test_gamestate.board[2][0])
+            self.assertEquals(0, test_gamestate.board[2][1])
+            self.assertEquals(1, test_gamestate.board[2][2])     
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_3x3_allbombs_setneighbours(self):
+        try:
+            test_gamestate = model.GameState(3, 3, 3)
+            self.assertFalse(test_gamestate.is_win())
+            test_gamestate.board = [[model.Tile(True), model.Tile(True), model.Tile(True)], [model.Tile(True), model.Tile(True), model.Tile(True)], [model.Tile(True), model.Tile(True), model.Tile(True)]]
+            self.assertEquals(3, test_gamestate.board[0][0])
+            self.assertEquals(5, test_gamestate.board[0][1])
+            self.assertEquals(3, test_gamestate.board[0][2])
+            self.assertEquals(5, test_gamestate.board[1][0])
+            self.assertEquals(8, test_gamestate.board[1][1])
+            self.assertEquals(5, test_gamestate.board[1][2])
+            self.assertEquals(3, test_gamestate.board[2][0])
+            self.assertEquals(5, test_gamestate.board[2][1])
+            self.assertEquals(3, test_gamestate.board[2][2])     
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)                        
 
 
 class TestRender(unittest.TestCase):
-    pass
+    def test_1x1_render_noreveal(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 1)
+            self.assertEquals("   1 \n  +-+\n1 | |\n  +-+", test_gamestate.render())
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
 
+    def test_1x1_render_reveal_nobomb(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 0)
+            test_gamestate.check_space(0, 0)
+            self.assertEquals("   1 \n  +-+\n1 |0|\n  +-+", test_gamestate.render())
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)  
+
+    def test_1x1_render_reveal_bomb(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 1)
+            test_gamestate.check_space(0, 0)
+            self.assertEquals("   1 \n  +-+\n1 |B|\n  +-+", test_gamestate.render())
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong) 
+
+    def test_1x1_render_reveal_flagged(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 0)
+            test_gamestate.set_flag(0, 0)
+            self.assertEquals("   1 \n  +-+\n1 |F|\n  +-+", test_gamestate.render())
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_3x3_render_noreveal(self):
+        try:
+            test_gamestate = model.GameState(3, 3, 0)
+            self.assertEquals("   1 2 3 \n  +-+-+-+\n1 | | | |\n  +-+-+-+\n2 | | | |\n  +-+-+-+\n3 | | | |\n  +-+-+-+", test_gamestate.render())
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_3x3_render_complex(self):
+        try:
+            test_gamestate = model.Gamestate(3, 3, 8)
+            test_gamestate.board = [[model.Tile(True), model.Tile(True), model.Tile(True)], [model.Tile(False), model.Tile(False), model.Tile(False)], [model.Tile(True), model.Tile(True), model.Tile(True)]]
+            test_gamestate.check_space(1, 0)
+            test_gamestate.check_space(1, 1)
+            test_gamestate.check_space(1, 2)
+            test_gamestate.check_space(2, 0)
+            test_gamestate.set_flag(0, 0)
+            test_gamestate.set_flag(0, 2)
+            test_gamestate.set_flag(2, 1)
+            self.assertEquals("   1 2 3 \n  +-+-+-+\n1 |F| |F|\n  +-+-+-+\n2 |4|6|4|\n  +-+-+-+\n3 |B|F| |\n  +-+-+-+", test_gamestate.render())
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    
 
 class TestCheckSpace(unittest.TestCase):
     pass
@@ -183,7 +323,7 @@ class TestIsWin(unittest.TestCase):
         try:
             test_gamestate = model.GameState(3, 3, 3)
             self.assertFalse(test_gamestate.is_win())
-            test_gamestate.board = [[model.Tile(True), model.Tile(False), model.Tile(True)], [model.Tile(False), model.Tile(False), model.Tile(False)], [model.Tile(False), model.Tile(True), model.Tile(True)]]
+            test_gamestate.board = [[model.Tile(True), model.Tile(False), model.Tile(True)], [model.Tile(False), model.Tile(False), model.Tile(False)], [model.Tile(False), model.Tile(True), model.Tile(False)]]
             test_gamestate.check_space(0, 1)
             self.assertFalse(test_gamestate.is_win())
             test_gamestate.check_space(1, 0)
@@ -192,9 +332,9 @@ class TestIsWin(unittest.TestCase):
             self.assertFalse(test_gamestate.is_win())   
             test_gamestate.check_space(1, 2)      
             self.assertFalse(test_gamestate.is_win())     
-            test_gamestate.check_space(1, 0)    
+            test_gamestate.check_space(2, 0)    
             self.assertFalse(test_gamestate.is_win())   
-            test_gamestate.check_space(1, 2)      
+            test_gamestate.check_space(2, 2)      
             self.assertTrue(test_gamestate.is_win())                
         except(errors.ZeroException):
             self.fail(zero_expcept_wrong)  

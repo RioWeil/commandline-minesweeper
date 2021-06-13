@@ -47,7 +47,7 @@ class GameState:
         self.victory = False
         self.gameover = False
         self.board = self.create_board(width, height, numbombs)
-        self.set_neighbours(self.board)
+        self.set_neighbours()
         
 
     """
@@ -74,7 +74,7 @@ class GameState:
     A tile with 3 neighbouring bombs will have bomb_neighbours set to 3.
     board (2D list) - Board of tiles to update
     """
-    def set_neighbours(self, board):
+    def set_neighbours(self):
         return
 
 
