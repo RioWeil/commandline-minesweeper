@@ -9,7 +9,7 @@ import unittest
 import model
 import errors
 
-zero_expcept_wrong = "ZeroException shouldn't be thrown"
+zero_except_wrong = "ZeroException shouldn't be thrown"
 bomb_except_wrong = "TooManyBombsException shouldn't be thrown"
 index_except_wrong = "IndexError shouldn't be thrown"
 
@@ -37,7 +37,7 @@ class TestGameStateConstructor(unittest.TestCase):
             self.assertFalse(test_gamestate.victory)
             self.assertFalse(test_gamestate.gameover)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)
+            self.fail(zero_except_wrong)
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -68,7 +68,7 @@ class TestCreateBoard(unittest.TestCase):
             self.assertEqual(1, len(test_gamestate.board[0]))
             self.assertFalse(test_gamestate.board[0][0].is_bomb)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
         
@@ -80,7 +80,7 @@ class TestCreateBoard(unittest.TestCase):
             self.assertEqual(1, len(test_gamestate.board[0]))
             self.assertTrue(test_gamestate.board[0][0].is_bomb)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -93,7 +93,7 @@ class TestCreateBoard(unittest.TestCase):
                 for j in range(5):
                     self.assertFalse(test_gamestate.board[i][j].is_bomb)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -106,7 +106,7 @@ class TestCreateBoard(unittest.TestCase):
                 for j in range(10):
                     self.assertTrue(test_gamestate.board[i][j].is_bomb)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -122,7 +122,7 @@ class TestCreateBoard(unittest.TestCase):
                         count += 1
             self.assertEqual(25, count)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -133,7 +133,7 @@ class TestSetNeighbours(unittest.TestCase):
             test_gamestate = model.GameState(1, 1, 1)
             self.assertEquals(0, test_gamestate.board[0][0].bomb_neighbours)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -145,7 +145,7 @@ class TestSetNeighbours(unittest.TestCase):
             self.assertEquals(0, test_gamestate.board[0][0])
             self.assertEquals(1, test_gamestate.board[0][1])
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -164,7 +164,7 @@ class TestSetNeighbours(unittest.TestCase):
             self.assertEquals(0, test_gamestate.board[2][1])
             self.assertEquals(0, test_gamestate.board[2][2])     
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -183,7 +183,7 @@ class TestSetNeighbours(unittest.TestCase):
             self.assertEquals(0, test_gamestate.board[2][1])
             self.assertEquals(1, test_gamestate.board[2][2])     
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -202,7 +202,7 @@ class TestSetNeighbours(unittest.TestCase):
             self.assertEquals(5, test_gamestate.board[2][1])
             self.assertEquals(3, test_gamestate.board[2][2])     
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)                        
 
@@ -213,7 +213,7 @@ class TestRender(unittest.TestCase):
             test_gamestate = model.GameState(1, 1, 1)
             self.assertEquals("   1 \n  +-+\n1 | |\n  +-+", test_gamestate.render())
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -223,7 +223,7 @@ class TestRender(unittest.TestCase):
             test_gamestate.check_space(0, 0)
             self.assertEquals("   1 \n  +-+\n1 |0|\n  +-+", test_gamestate.render())
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)  
 
@@ -233,7 +233,7 @@ class TestRender(unittest.TestCase):
             test_gamestate.check_space(0, 0)
             self.assertEquals("   1 \n  +-+\n1 |B|\n  +-+", test_gamestate.render())
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong) 
 
@@ -243,7 +243,7 @@ class TestRender(unittest.TestCase):
             test_gamestate.set_flag(0, 0)
             self.assertEquals("   1 \n  +-+\n1 |F|\n  +-+", test_gamestate.render())
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -252,7 +252,7 @@ class TestRender(unittest.TestCase):
             test_gamestate = model.GameState(3, 3, 0)
             self.assertEquals("   1 2 3 \n  +-+-+-+\n1 | | | |\n  +-+-+-+\n2 | | | |\n  +-+-+-+\n3 | | | |\n  +-+-+-+", test_gamestate.render())
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -269,9 +269,57 @@ class TestRender(unittest.TestCase):
             test_gamestate.set_flag(2, 1)
             self.assertEquals("   1 2 3 \n  +-+-+-+\n1 |F| |F|\n  +-+-+-+\n2 |4|6|4|\n  +-+-+-+\n3 |B|F| |\n  +-+-+-+", test_gamestate.render())
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
+
+class TestRenderLabelRow(unittest.TestCase):
+    def test_1col_label_render(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 1)
+            self.assertEquals("   1 ", test_gamestate.render_label_row())
+        except(errors.ZeroException):
+            self.fail(zero_except_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_multicol_label_render(self):
+        try:
+            test_gamestate = model.GameState(5, 1, 1)
+            self.assertEquals("   1 2 3 4 5 ", test_gamestate.render_label_row())
+        except(errors.ZeroException):
+            self.fail(zero_except_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_overtencol_label_render(self):
+        try:
+            test_gamestate = model.GameState(15, 1, 1)
+            self.assertEquals("   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 ", test_gamestate.render_label_row())
+        except(errors.ZeroException):
+            self.fail(zero_except_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+    
+class TestRenderBorderRow(self):
+    def test_1col_border_render(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 1)
+            self.assertEquals("  +-+", test_gamestate.render_border_row())
+        except(errors.ZeroException):
+            self.fail(zero_except_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_multicol_border_render(self):
+        try:
+            test_gamestate = model.GameState(5, 1, 1)
+            self.assertEquals("  +-+-+-+-+-+", test_gamestate.render_border_row())
+        except(errors.ZeroException):
+            self.fail(zero_except_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
 
     
 
@@ -282,7 +330,7 @@ class TestCheckSpace(unittest.TestCase):
             test_gamestate.check_space(10, 10)
             self.fail("IndexError should have been thrown.")
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
         except(IndexError):
@@ -295,7 +343,7 @@ class TestCheckSpace(unittest.TestCase):
             self.assertTrue(test_gamestate.board[0][0].revealed)
             self.assertFalse(test_gamestate.gameover)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
         except(IndexError):
@@ -308,7 +356,7 @@ class TestCheckSpace(unittest.TestCase):
             self.assertTrue(test_gamestate.board[0][0].revealed)
             self.assertTrue(test_gamestate.gameover)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
         except(IndexError):
@@ -323,7 +371,7 @@ class TestCheckSpace(unittest.TestCase):
             self.assertTrue(test_gamestate.board[0][2].revealed)
             self.assertFalse(test_gamestate.gameover)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
         except(IndexError):
@@ -338,7 +386,7 @@ class TestCheckSpace(unittest.TestCase):
             self.assertTrue(test_gamestate.board[0][1].revealed)
             self.assertFalse(test_gamestate.board[0][2].revealed)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
         except(IndexError):
@@ -361,7 +409,7 @@ class TestCheckSpace(unittest.TestCase):
             self.assertFalse(test_gamestate.board[2][1].revealed)
             self.assertFalse(test_gamestate.board[2][2].revealed)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
         except(IndexError):
@@ -376,7 +424,7 @@ class TestSetFlag(unittest.TestCase):
             test_gamestate.set_flag(10, 10)
             self.fail("IndexError should have been thrown.")
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
         except(IndexError):
@@ -388,7 +436,7 @@ class TestSetFlag(unittest.TestCase):
             test_gamestate.set_flag(0, 0)
             self.assertTrue(test_gamestate.board[0][0].flagged)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)  
         except(IndexError):
@@ -407,7 +455,7 @@ class TestSetFlag(unittest.TestCase):
                     else:
                         self.assertFalse(test_gamestate.board[i][j].flagged)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)                    
         except(IndexError):
@@ -421,7 +469,7 @@ class TestIsWin(unittest.TestCase):
             test_gamestate.check_space(0, 0)
             self.assertTrue(test_gamestate.is_win())
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -443,7 +491,7 @@ class TestIsWin(unittest.TestCase):
             test_gamestate.check_space(2, 2)      
             self.assertTrue(test_gamestate.is_win())           
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -454,7 +502,7 @@ class TestRevealAll(unittest.TestCase):
             test_gamestate.reveal_all()
             self.assertTrue(test_gamestate.board[0][0].revealed)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -466,7 +514,7 @@ class TestRevealAll(unittest.TestCase):
                 for j in range(5):
                     self.assertTrue(test_gamestate.board[i][j].revealed)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
@@ -480,7 +528,7 @@ class TestRevealAll(unittest.TestCase):
                 for j in range(5):
                     self.assertTrue(test_gamestate.board[i][j].revealed)
         except(errors.ZeroException):
-            self.fail(zero_expcept_wrong)  
+            self.fail(zero_except_wrong)  
         except(errors.TooManyBombsException):
             self.fail(bomb_except_wrong)
 
