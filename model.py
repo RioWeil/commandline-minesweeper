@@ -82,24 +82,24 @@ class GameState:
     Returns a string corresponding to the current gamestate
     """
     def render(self):
-        return ""
+        return "a"
 
 
     """
     Reveals the space on the board at coordinate (x, y).
     Also reveals neighbouring spaces which have zero bombs for neighbours.
-    x (int) - x coordinate of space to check
-    y (int) - y coordinate of space to check
+    row (int) - row coordinate of space to check
+    col (int) - column coordinate of space to check
     """
-    def check_space(self, x, y):
+    def check_space(self, row, col):
         return
 
     """
     Sets flag down at coordinate (x, y)
-    x (int) - x coordinate of space to check
-    y (int) - y coordinate of space to check
+    row (int) - row coordinate of space to check
+    col (int) - column coordinate of space to check
     """
-    def set_flag(self, x, y):
+    def set_flag(self, row, col):
         return
 
     """
