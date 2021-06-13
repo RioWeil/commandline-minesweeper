@@ -47,7 +47,7 @@ class GameState:
         self.victory = False
         self.gameover = False
         self.board = self.create_board(width, height, numbombs)
-        set_neighbours(self.board)
+        self.set_neighbours(self.board)
         
 
     """
@@ -75,14 +75,14 @@ class GameState:
     board (2D list) - Board of tiles to update
     """
     def set_neighbours(self, board):
-        pass
+        return
 
 
     """
     Returns a string corresponding to the current gamestate
     """
     def render(self):
-        return 0
+        return ""
 
 
     """
@@ -91,7 +91,7 @@ class GameState:
     y (int) - y coordinate of space to check
     """
     def check_space(self, x, y):
-        pass
+        return
 
     """
     Sets flag down at coordinate (x, y)
@@ -99,12 +99,16 @@ class GameState:
     y (int) - y coordinate of space to check
     """
     def set_flag(self, x, y):
-        pass
+        return
+
+    """
+    Returns true if board is in winning state (all tiles revealed except bombs)
+    """
+    def is_win(self):
+        return False
 
     """
     Reveals all spaces on board
     """
     def reveal_all(self):
-        pass
-
-            
+        return

@@ -135,6 +135,42 @@ class TestCheckSpace(unittest.TestCase):
 class TestSetFlag(unittest.TestCase):
     pass
 
+class TestIsWin(unittest.TestCase):
+    def test_1x1_iswin(self):
+        try:
+            test_gamestate = model.GameState(1, 1, 0)
+            self.assertFalse(test_gamestate.is_win())
+            test_gamestate.check_space(0, 0)
+            self.assertTrue(test_gamestate.is_win())
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)
+
+    def test_larger_iswin(self):
+        try:
+            test_gamestate = model.GameState(3, 3, 3)
+            self.assertFalse(test_gamestate.is_win())
+            test_gamestate.board = [[model.Tile(True), model.Tile(False), model.Tile(True)], [model.Tile(False), model.Tile(False), model.Tile(False)], [model.Tile(False), model.Tile(True), model.Tile(True)]]
+            test_gamestate.check_space(0, 1)
+            self.assertFalse(test_gamestate.is_win())
+            test_gamestate.check_space(1, 0)
+            self.assertFalse(test_gamestate.is_win())
+            test_gamestate.check_space(1, 1)
+            self.assertFalse(test_gamestate.is_win())   
+            test_gamestate.check_space(1, 2)      
+            self.assertFalse(test_gamestate.is_win())     
+            test_gamestate.check_space(1, 0)    
+            self.assertFalse(test_gamestate.is_win())   
+            test_gamestate.check_space(1, 2)      
+            self.assertTrue(test_gamestate.is_win())                
+        except(errors.ZeroException):
+            self.fail(zero_expcept_wrong)  
+        except(errors.TooManyBombsException):
+            self.fail(bomb_except_wrong)        
+
+
+
 class TestRevealAll(unittest.TestCase):
     def test_1x1_reveal(self):
         try:
@@ -170,9 +206,7 @@ class TestRevealAll(unittest.TestCase):
         except(errors.ZeroException):
             self.fail(zero_expcept_wrong)  
         except(errors.TooManyBombsException):
-            self.fail(bomb_except_wrong)        
-
-
+            self.fail(bomb_except_wrong)
 
 if __name__ == '__main__':
     unittest.main()
