@@ -90,13 +90,20 @@ class GameState:
     Returns a string labelling the columns of the board
     """
     def render_label_row(self):
-        return ""
+        row = "   "
+        for i in range(self.width):
+            row += str(i)
+            
 
     """
     Return a string with a border row of the form +-+-+-+
     """
     def render_border_row(self):
-        return ""
+        row = "  "
+        for i in range(self.width):
+            row += "+-"
+        row += "+"
+        return row
     
     """
     Returns a string with the board information of the form X  |1| |F|...
