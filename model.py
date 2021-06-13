@@ -84,7 +84,12 @@ class GameState:
     Returns a string corresponding to the current gamestate
     """
     def render(self):
-        return "a"
+        rendered_board = self.render_label_row()
+        for i in range(self.height):
+            rendered_board += render_border_row()
+            rendered_board += render_minefield_row(i)
+        rendered_board += render_border_row()
+        return rendered_board
 
     """
     Returns a string labelling the columns of the board
@@ -98,7 +103,7 @@ class GameState:
             else:
                 row += " "
         return row
-        
+
     """
     Return a string with a border row of the form +-+-+-+
     """
@@ -113,7 +118,25 @@ class GameState:
     Returns a string with the board information of the form X  |1| |F|...
     """
     def render_minefield_row(self, row):
-        return ""
+        row_to_render = self.board[row]
+        row = str(row + 1)
+        if (row < 9):
+            row += " "
+        for i in range(self.width):
+            row += "|"
+            if not row_to_render[i].revealed:
+                if row_to_render[i].flagged:
+                    row += "F"
+                else:
+                    row += " "
+            else:
+                if row_to_render[i].is_bomb:
+                    row += "B"
+                else:
+                    row += row_to_render[i].bomb_neighbours
+        row += "|"
+        return row
+
 
 
     """
