@@ -11,6 +11,7 @@ import errors
 
 zero_expcept_wrong = "ZeroException shouldn't be thrown"
 bomb_except_wrong = "TooManyBombsException shouldn't be thrown"
+index_except_wrong = "IndexError shouldn't be thrown"
 
 class TestTileConstructor(unittest.TestCase):
     def test_constructor_bomb(self):

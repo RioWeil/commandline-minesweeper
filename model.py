@@ -32,6 +32,8 @@ Represents a minesweeper gamestate
 class GameState:
     """
     Initializes the gamestate.
+    Throws ZeroException if board has size zero.
+    Throws TooManyBombsException if number of bombs specified is too many for board.
     width (int) - Width of the gameboard
     height (int) - Height of the gameboard
     numbombs (int) - Number of bombs on gameboard
@@ -87,6 +89,7 @@ class GameState:
 
     """
     Reveals the space on the board at coordinate (x, y).
+    Throws IndexError if trying to access coordinate not in the board.
     Also reveals neighbouring spaces which have zero bombs for neighbours.
     row (int) - row coordinate of space to check (0 based indexing)
     col (int) - column coordinate of space to check (0 based indexing)
@@ -95,7 +98,8 @@ class GameState:
         return
 
     """
-    Sets flag down at coordinate (x, y)
+    Sets flag down at coordinate (x, y).
+    Throws IndexError if trying to access coordinate not in the board.
     row (int) - row coordinate of space to flag (0 based indexing)
     col (int) - column coordinate of space to flag (0 based indexing)
     """
