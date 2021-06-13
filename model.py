@@ -108,13 +108,13 @@ class GameState:
     """
     Reveals the space on the board at coordinate (x, y).
     Throws IndexError if trying to access coordinate not in the board.
-    Also reveals neighbouring spaces which have zero bombs for neighbours.
+    If space has zero bombs, recursively calls function on all neighbours.
     row (int) - row coordinate of space to check (0 based indexing)
     col (int) - column coordinate of space to check (0 based indexing)
     """
     def check_space(self, row, col):
         return
-
+    
     """
     Sets flag down at coordinate (x, y).
     Throws IndexError if trying to access coordinate not in the board.
