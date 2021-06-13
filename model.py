@@ -77,24 +77,24 @@ class GameState:
     board (2D list) - Board of tiles to update
     """
     def set_neighbours(self):
-        for i in range(self.width):
-            for j in range(self.height):
+        for i in range(self.height):
+            for j in range(self.width):
                 count = 0
                 if (i - 1 >= 0):
                     count += self.is_bomb_set(i - 1, j)
                     if (j - 1 >= 0):
                         count += self.is_bomb_set(i - 1, j - 1)
-                    if (j + 1 < self.height):
+                    if (j + 1 < self.width):
                         count += self.is_bomb_set(i - 1, j + 1)
-                if (i + 1 < self.width):
+                if (i + 1 < self.height):
                     count += self.is_bomb_set(i + 1, j)
                     if (j - 1 >= 0):
                         count += self.is_bomb_set(i + 1, j - 1)
-                    if (j + 1 < self.height):
+                    if (j + 1 < self.width):
                         count += self.is_bomb_set(i + 1, j + 1)
                 if (j - 1 >= 0):
                     count += self.is_bomb_set(i, j - 1)
-                if (j + 1 < self.height):
+                if (j + 1 < self.width):
                     count += self.is_bomb_set(i, j + 1)
                 self.board[i][j].bomb_neighbours = count
 
@@ -164,7 +164,7 @@ class GameState:
                 if row_to_render[i].is_bomb:
                     newrow += "B"
                 else:
-                    newrow += row_to_render[i].bomb_neighbours
+                    newrow += str(row_to_render[i].bomb_neighbours)
         newrow += "|"
         return newrow
 
@@ -187,17 +187,17 @@ class GameState:
                 self.check_space_notbomb(row - 1, col)
                 if (col - 1 >= 0):
                     self.check_space_notbomb(row - 1, col - 1)
-                if (col + 1 < self.height):
+                if (col + 1 < self.width):
                     self.check_space_notbomb(row - 1, col + 1)
-            if (row + 1 < self.width):
+            if (row + 1 < self.height):
                 self.check_space_notbomb(row + 1, col)
                 if (col - 1 >= 0):
                     self.check_space_notbomb(row + 1, col - 1)
-                if (col + 1 < self.height):
+                if (col + 1 < self.width):
                     self.check_space_notbomb(row + 1, col + 1)
             if (col - 1 >= 0):
                 self.check_space_notbomb(row, col - 1)
-            if (col + 1 < self.height):
+            if (col + 1 < self.width):
                 self.check_space_notbomb(row, col + 1)
             
 
@@ -214,17 +214,17 @@ class GameState:
                     self.check_space_notbomb(row - 1, col)
                     if (col - 1 >= 0):
                         self.check_space_notbomb(row - 1, col - 1)
-                    if (col + 1 < self.height):
+                    if (col + 1 < self.width):
                         self.check_space_notbomb(row - 1, col + 1)
-                if (row + 1 < self.width):
+                if (row + 1 < self.height):
                     self.check_space_notbomb(row + 1, col)
                     if (col - 1 >= 0):
                         self.check_space_notbomb(row + 1, col - 1)
-                    if (col + 1 < self.height):
+                    if (col + 1 < self.width):
                         self.check_space_notbomb(row + 1, col + 1)
                 if (col - 1 >= 0):
                     self.check_space_notbomb(row, col - 1)
-                if (col + 1 < self.height):
+                if (col + 1 < self.width):
                     self.check_space_notbomb(row, col + 1)
 
     """
@@ -241,8 +241,8 @@ class GameState:
     """
     def is_win(self):
         count = 0
-        for i in range(self.width):
-            for j in range(self.height):
+        for i in range(self.height):
+            for j in range(self.width):
                 if (not self.board[i][j].is_bomb) and (self.board[i][j].revealed):
                     count += 1
         return (count == (self.width * self.height - self.numbombs))
@@ -252,6 +252,6 @@ class GameState:
     Reveals all spaces on board
     """
     def reveal_all(self):
-        for i in range(self.width):
-            for j in range(self.height):
+        for i in range(self.height):
+            for j in range(self.width):
                 self.board[i][j].revealed = True
