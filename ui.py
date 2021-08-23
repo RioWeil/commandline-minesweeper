@@ -1,3 +1,10 @@
+"""
+Date: 08/22/2021
+Name: Rio Weil
+Title: ui.py
+Description: Frontend code for minesweeper game, responsible for the UI through the console.
+"""
+
 import model
 import errors
 
